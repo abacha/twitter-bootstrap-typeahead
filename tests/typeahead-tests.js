@@ -71,7 +71,7 @@
 
 		setTimeout(function() {
 		    ok(typeahead.$menu.is(":visible"), 'typeahead is visible');
-		    equal(typeahead.$menu.find('li').length, 3, 'has 3 items in menu');
+		    equal(typeahead.$menu.find('li').length, 5, 'has 5 items in menu');
 		    equal(typeahead.$menu.find('.active').length, 1, 'one item is active');
 
 		    typeahead.$menu.remove();
@@ -187,6 +187,26 @@
       ok(changed, 'a change event was fired');
 
       typeahead.$menu.remove();
+  });
+
+  test('list all when noFilter is true', function() {
+      var $input = $('<input />').typeahead({ ajax: '/test' }),
+          typeahead = $input.data('typeahead');
+
+      stop();
+
+      $input.val('aaa');
+      typeahead.noFilter = true;
+      typeahead.lookup();
+
+      setTimeout(function() {
+          start();
+
+          ok(typeahead.$menu.is(":visible"), 'typeahead is visible');
+          equal(typeahead.$menu.find('li').length, 3, 'has 3 items in menu');
+          equal(typeahead.$menu.find('.active').length, 1, 'one item is active');
+          typeahead.$menu.remove();
+      }, 2000);
   });
 
   test('basic ajax url as source should work', function() {

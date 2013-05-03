@@ -15,6 +15,7 @@ function ($) {
 
   var _defaults = {
       source: [],
+      noFilter: false,
       maxResults: 8,
       minLength: 1,
       menu: '<ul class="typeahead dropdown-menu"></ul>',
@@ -98,6 +99,8 @@ function ($) {
       filter: function(data) {
         var that = this,
             items;
+        if (this.options.noFilter == true)
+          return this.render(this.sorter(data)).show();
 
         items = $.grep(data, function (item) {
           return ~item[that.options.display].toLowerCase().indexOf(that.query.toLowerCase());
